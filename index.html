@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add comments</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script defer src="./js/main.js"></script>
+  </head>
+  <body>
+    <h1>Добавить комментарий</h1>
+    <form>
+      <div class="error-message" id="error">
+        Введите <b>Имя</b> и Напишите <b>текст комментария</b>, дату можно не
+        указывать)
+      </div>
+      <div class="form-fields">
+        <div class="left">
+          <input type="text" name="name" id="input-name" placeholder="Имя" />
+          <input type="date" name="date" id="input-date" />
+        </div>
+        <div class="right">
+          <textarea
+            name="comment"
+            type="text"
+            id="input-message"
+            placeholder="Присоединиться к обсуждению..."
+          ></textarea>
+        </div>
+      </div>
+      <input type="submit" value="Отправить" id="input-submit" />
+    </form>
+
+    <h2>Список комментариев:</h2>
+  </body>
+</html>
