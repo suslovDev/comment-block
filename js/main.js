@@ -105,6 +105,12 @@ const handleSubmit = (e) => {
   clearFields(form);
 };
 
+const handleEnter = (e) => {
+  if (e.code === "Enter") {
+    handleSubmit(e);
+  }
+};
+
 const handleActions = (e) => {
   let target = e.target;
 
@@ -114,12 +120,6 @@ const handleActions = (e) => {
   }
   if (target.classList.contains("like-button")) {
     target.classList.toggle("liked");
-  }
-};
-
-const handleEnter = (e) => {
-  if (e.code === "Enter") {
-    handleSubmit(e);
   }
 };
 
