@@ -93,7 +93,6 @@ textarea {
 /* ..................comment element.................. */
 
 .comment {
-  width: 60%;
   min-height: 100px;
   border-radius: 8px;
   display: flex;

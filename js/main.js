@@ -34,6 +34,26 @@ const addComment = (place, comment) => {
   place.append(comment);
 };
 
+const inputsIsValid = (nameInput, textInput) => {
+  if (!nameInput.value.trim().length) {
+    showError("Представьтесь пожалуйста!");
+    nameInput.focus();
+    return false;
+  }
+  if (textInput.value.trim().length < 7) {
+    showError("Ну напишите хоть пять букв, что-ли)))");
+    textInput.focus();
+    return false;
+  }
+  return true;
+};
+
+const clearFields = (form) => {
+  [...form].forEach((field) => {
+    if (field.value !== "Отправить") field.value = "";
+  });
+};
+
 const wasYesterday = (date) => {
   let now = new Date().getDate();
   if (now === new Date(date).getDate() + 1) {
@@ -48,22 +68,10 @@ const wasToday = (date) => {
   }
 };
 
-const clearFields = (form) => {
-  [...form].forEach((field) => {
-    if (field.value !== "Отправить") field.value = "";
-  });
-};
-
-const inputIsValid = (name, text) => {
-  if (!name.trim().length || !text.trim().length) {
-    return false;
-  }
-  return true;
-};
-
-const showError = () => {
+const showError = (errorMessage) => {
   let errorElem = document.getElementById("error");
   errorElem.classList.add("error");
+  errorElem.textContent = errorMessage;
 };
 
 const hideError = () => {
@@ -75,34 +83,6 @@ const handleInputChange = (e) => {
   if (e.target.name == "name" || e.target.name == "comment") {
     hideError();
   }
-};
-
-const handleSubmit = (e) => {
-  e.preventDefault();
-
-  let now = new Date();
-
-  let [name, text, date] = [
-    form.elements.name.value,
-    form.elements.comment.value,
-    form.elements.date.value,
-  ];
-
-  if (!inputIsValid(name, text)) {
-    showError();
-    return;
-  }
-
-  if (wasYesterday(date)) {
-    date = `Вчера в ${now.toLocaleString().split(",")[1]}`;
-  }
-  if (wasToday(date)) {
-    date = `Сегодня в ${now.toLocaleString().split(",")[1]}`;
-  }
-
-  addComment(document.body, createComment(name, text, date));
-
-  clearFields(form);
 };
 
 const handleEnter = (e) => {
@@ -121,6 +101,31 @@ const handleActions = (e) => {
   if (target.classList.contains("like-button")) {
     target.classList.toggle("liked");
   }
+};
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+  let now = new Date();
+
+  let [name, comment, date] = [
+    form.elements.name.value,
+    form.elements.comment.value,
+    form.elements.date.value,
+  ];
+
+  if (!inputsIsValid(form.elements.name, form.elements.comment)) return;
+
+  if (wasYesterday(date)) {
+    date = `Вчера в ${now.toLocaleString().split(",")[1]}`;
+  }
+  if (wasToday(date)) {
+    date = `Сегодня в ${now.toLocaleString().split(",")[1]}`;
+  }
+
+  addComment(document.body, createComment(name, comment, date));
+
+  clearFields(form);
 };
 
 form.addEventListener("submit", handleSubmit);
