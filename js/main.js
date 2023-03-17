@@ -40,7 +40,7 @@ const inputsIsValid = (nameInput, textInput) => {
     nameInput.focus();
     return false;
   }
-  if (textInput.value.trim().length < 7) {
+  if (textInput.value.trim().length < 5) {
     showError("Ну напишите хоть пять букв, что-ли)))");
     textInput.focus();
     return false;
