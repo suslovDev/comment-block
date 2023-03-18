@@ -105,6 +105,7 @@ const handleActions = (e) => {
 
 const handleSubmit = (e) => {
   e.preventDefault();
+  if (!inputsIsValid(form.elements.name, form.elements.comment)) return;
 
   let now = new Date();
 
@@ -113,8 +114,6 @@ const handleSubmit = (e) => {
     form.elements.comment.value,
     form.elements.date.value,
   ];
-
-  if (!inputsIsValid(form.elements.name, form.elements.comment)) return;
 
   if (wasYesterday(date)) {
     date = `Вчера в ${now.toLocaleString().split(",")[1]}`;
